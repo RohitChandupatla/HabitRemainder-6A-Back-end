@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 public class ReminderController {
     @Autowired
@@ -19,6 +20,10 @@ public class ReminderController {
     Optional<Habit> getHabit() {
         long count = repository.count();
         return repository.findById(CommonUtils.getRandomNumber(1, count));
+    }
+    @GetMapping("/allHabit")
+    List<Habit> getAllHabit() {
+        return (List<Habit>) repository.findAll();
     }
 
     @PostMapping("/habit")
@@ -38,7 +43,7 @@ public class ReminderController {
         try {
             Optional<Habit> habit = repository.findById(id);
             repository.deleteById(id);
-            return new ResponseEntity("Added " + habit.get().getHabit() , HttpStatus.OK);
+            return new ResponseEntity("Deleted " + habit.get().getHabit() , HttpStatus.OK);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
