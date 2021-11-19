@@ -21,7 +21,7 @@ public class ReminderController {
         long count = repository.count();
         return repository.findById(CommonUtils.getRandomNumber(1, count));
     }
-    @GetMapping("/allHabit")
+    @GetMapping("/allHabits")
     List<Habit> getAllHabit() {
         return (List<Habit>) repository.findAll();
     }
